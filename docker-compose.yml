@@ -25,6 +25,8 @@ services:
       - ./backend:/app
     ports:
       - "8000:8000"
+    env_file:           # <-- THIS INJECTS YOUR API KEY
+      - .env            
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - OLLAMA_HOST=http://ollama:11434
@@ -38,6 +40,8 @@ services:
     command: celery -A core worker --loglevel=info
     volumes:
       - ./backend:/app
+    env_file:           # <-- THIS INJECTS YOUR API KEY
+      - .env            
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - OLLAMA_HOST=http://ollama:11434
