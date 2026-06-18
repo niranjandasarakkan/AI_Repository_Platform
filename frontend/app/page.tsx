@@ -11,7 +11,7 @@ export default function Home() {
 
   const fetchHistory = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/history/");
+      const response = await fetch("https://airepositoryplatform-production.up.railway.app/api/history/");
       const data = await response.json();
       if (data.history) {
         setHistory(data.history);
@@ -39,7 +39,7 @@ export default function Home() {
       setResult({ status: "processing", message: "Uploading ZIP and deploying AI Swarm..." });
       
       try {
-        const response = await fetch("http://localhost:8000/api/bulk-screen/", {
+        const response = await fetch("https://airepositoryplatform-production.up.railway.app/api/bulk-screen/", {
           method: "POST",
           body: formData,
         });
@@ -68,7 +68,7 @@ export default function Home() {
     // STANDARD SINGLE PDF HANDLING
     else {
       try {
-        const response = await fetch("http://localhost:8000/api/upload-pdf/", {
+        const response = await fetch("https://airepositoryplatform-production.up.railway.app/api/upload-pdf/", {
           method: "POST",
           body: formData,
         });
@@ -97,7 +97,7 @@ export default function Home() {
     setResult({ status: "processing", message: "Sending profile to AI Agents..." });
     
     try {
-      const response = await fetch("http://localhost:8000/api/screen/", {
+      const response = await fetch("https://airepositoryplatform-production.up.railway.app/api/screen/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -114,7 +114,7 @@ export default function Home() {
         let isComplete = false;
         while (!isComplete) {
           await new Promise(resolve => setTimeout(resolve, 2000)); 
-          const statusRes = await fetch(`http://localhost:8000/api/screen/status/${data.task_id}/`);
+          const statusRes = await fetch(`https://airepositoryplatform-production.up.railway.app/api/screen/status/${data.task_id}/`);
           const statusData = await statusRes.json();
 
           if (statusData.status === "completed") {
